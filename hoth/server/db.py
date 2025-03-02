@@ -17,7 +17,9 @@ class Room:
         if newRoomName:
             self.newRoomName = newRoomName
         if username:
-            self.onlineUsers = username
+            self.onlineUsers = [username]
+        else:
+            self.onlineUsers = []
         if major_name:
             self.major = major_name
 
@@ -53,10 +55,17 @@ class Database:
             print(f"Error getting user: {str(e)}")
             return None
 
-    def add_room(self, room: Room):
-        if self.db.room.find_one({"newRoomName": room.newRoomName}) is not None:
-            return False
+    def add_room(self, room: Room, user: str):
+        existing_room = self.db.room.find_one({"newRoomName": room.newRoomName})
+
+        if existing_room:
+            if user not in existing_room.get("onlineUsers", []):
+                self.db.room.update_one(
+                    {"newRoomName": room.newRoomName},
+                    {"$push": {"onlineUsers": user}}
+                )
+            return False 
         else:
+            room.onlineUsers = [user]  
             self.db.room.insert_one(vars(room))
-            return True
-    
+            return True 
