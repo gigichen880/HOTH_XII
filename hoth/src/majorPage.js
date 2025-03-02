@@ -25,13 +25,15 @@ const MajorPage = () => {
     setNewRoomName(""); // Clear the input field
     console.log(newRoomName, username, major_name);
     axios.post(`http://localhost:5000/major/${major_name}`, {
-      major_name, newRoomName, username
+      newRoomName, username, major_name
     })
   };
 
+  /*
   axios.post("http://localhost:5000/major/African_American_Studies",{
     major_name
   });
+  */
 
   return (
     <div style={styles.pageContainer}>
