@@ -92,12 +92,17 @@ def major():
     '''
     
     majors = load_majors()
+    print(majors)
 
     if request.method == 'POST':
         major_name = request.json.get("major")
+        print(major_name)
+        print(major_name in majors)
         if major_name in majors:
-            return jsonify({"redirect": f"/major/{major_name}"})
+            print("YES")
+            return jsonify({"redirect": f"/Major/{major_name}"})
         else:
+            print("NO")
             return jsonify({"error": "Invalid major"}), 400
 
     return jsonify({"majors": majors}) 
@@ -106,6 +111,7 @@ def major():
 def major_detail(major_name):
     """Handle major-specific page request."""
     majors = load_majors()
+    print("hahahaha")
     if major_name not in majors:
         return jsonify({"error": "Major not found"}), 404
 

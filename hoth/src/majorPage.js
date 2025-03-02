@@ -20,6 +20,8 @@ const MajorPage = () => {
     setNewRoomName(""); // Clear the input field
   };
 
+  
+
   return (
     <div style={styles.pageContainer}>
       <h1 style={styles.heading}>Welcome to the {major} Major Chat Rooms!</h1>
