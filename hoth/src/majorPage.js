@@ -6,7 +6,8 @@ const MajorPage = () => {
   const location = useLocation();
   const username = location.state?.username || "Guest";
   var { major } = useParams();
-  major = major.slice(0).toUpperCase();
+  let major_name = major.slice(0)
+  major = major_name.toUpperCase();
 
   const [chatRooms, setChatRooms] = useState([
     { id: 1, name: `${major.toUpperCase()} Chat Room 1` },
@@ -16,7 +17,7 @@ const MajorPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [newRoomName, setNewRoomName] = useState("");
 
-  let major_name = "African_American_Studies";
+  // let major_name = "African_American_Studies";
 
   const createNewRoom = () => {
     const newRoom = { id: chatRooms.length + 1, name: newRoomName };
@@ -34,6 +35,7 @@ const MajorPage = () => {
     major_name
   });
   */
+
 
   return (
     <div style={styles.pageContainer}>
