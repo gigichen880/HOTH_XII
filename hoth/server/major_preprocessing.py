@@ -1,12 +1,11 @@
 import re
 
-# Read the file
-with open("major.txt", "r", encoding="utf-8") as file:
-    lines = file.readlines()
+input_file = "major.txt" 
+output_file = "cleaned_file.txt"
 
-# Process each line
-cleaned_lines = [re.sub(r"\).*", ")", line) for line in lines]
+with open(input_file, "r", encoding="utf-8") as infile, open(output_file, "w", encoding="utf-8") as outfile:
+    for line in infile:
+        cleaned_line = line.split("(")[0].strip().replace(" ", "_")  # Remove "(...)" and replace spaces with "_"
+        outfile.write(cleaned_line + "\n")
 
-# Write back to a new file or overwrite the original
-with open("cleaned_file.txt", "w", encoding="utf-8") as file:
-    file.writelines(cleaned_lines)
+print("Processing complete! Cleaned file saved as", output_file)
