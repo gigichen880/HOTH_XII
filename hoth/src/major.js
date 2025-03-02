@@ -2,8 +2,10 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import axios from "axios"
+import parse from 'html-react-parser';
 
 import './Home.css';
 
@@ -20,23 +22,66 @@ export default function Major()
     }
         */
 
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", "less_clubs.txt", true);
+    let allText = rawFile.responseText;
+    let major_names = allText.split('\n');
+
     const major = "African_American_Studies"
+    let buttons = [];
+    /*
+    for (let i = 0; i < 10; i++)
+    {
+        buttons.push(
+            <div>
+                <button onClick={() => MajorChoose(username, major_names[i])}>{major_names[i]}</button>
+            </div>
+        );
+    }
+    */
+    let target = `/major/${major}`;
 
     return (
         <div className='Major'>
             <p>{greeting}</p>
             <p>CS Math Physics Bio</p>
-            <button class='major' onClick={() => {majorChoose(username, major)}}>African American Studies</button>
+            <Link to={target}>{major}</Link>
         </div>
     )
 }
 
-function majorChoose(username, major)
+/*
+async function MajorChoose(username, major)
 {
-    axios.post("http://localhost:5000/major",{
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        // Navigate to another route and pass state
+        navigate('/receiver', {
+        state: {
+            userId: 123,
+            message: 'Hello from Sender!',
+            status: 'active'
+        }
+        });
+    };
+
+    await axios.post("http://localhost:5000/major",{
         username, major
     })
+    .then((response) => {
+        console.log("Response: ", response.data);
+        navigate('/Major/major', {
+            state: {
+                userId: 123,
+                message: 'Hello from Sender!',
+                status: 'active'
+            }
+        })
+    })
 }
+*/
 
+// <button class='major' onClick={() => {majorChoose(username, major)}}>African American Studies</button>
 
 

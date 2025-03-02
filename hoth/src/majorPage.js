@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios"
 
 const MajorPage = () => {
   var { major } = useParams();
@@ -19,6 +20,11 @@ const MajorPage = () => {
     setShowPopup(false); // Close the popup after room creation
     setNewRoomName(""); // Clear the input field
   };
+
+  let major_name = "African_American_Studies";
+  axios.post("http://localhost:5000/major/African_American_Studies",{
+    major_name
+  });
 
   return (
     <div style={styles.pageContainer}>
