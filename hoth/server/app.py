@@ -12,7 +12,7 @@ CORS(app, supports_credentials=True)
 
 load_dotenv(".env")
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
-#app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")  # Required for session management
+#app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")  
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -109,13 +109,14 @@ def major():
 
 @app.route('/major/<major_name>', methods=['GET', 'POST'])
 def major_detail(major_name):
-    """Handle major-specific page request."""
-    majors = load_majors()
-    print("hahahaha", major_name)
-    if major_name not in majors:
-        return jsonify({"error": "Major not found"}), 404
+    try:
+        if database.add_room(Room(**request.json)):
+            return {"status": "success"}
+        else:
+            return {"status": "failure"}
+    except KeyError:
+        return {"status": "failure", "message": "something or something not provided."}
 
-    return jsonify({"message": f"Welcome to {major_name} page!"})
 
 if __name__ == "__main__":
     app.run(debug=True)
