@@ -3,6 +3,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Home";
 import Login from "./login.js";
 import Signup from "./signup.js";
+import Major from "./major.js";
+import * as React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./Home";
+import Login from "./login.js";
+import Signup from "./signup.js";
 import MajorPage from "./majorPage.js";
 
 export default function App() {
@@ -22,6 +28,11 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <Signup />,
   },
+  {
+    path: "/major",
+    element: <Major />,
+  },
+
   {
     path: "/Major/:major",
     element: <MajorPage />,

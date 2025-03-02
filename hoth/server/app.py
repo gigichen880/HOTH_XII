@@ -48,7 +48,7 @@ def login():
         user = database.get_user(username)
 
         if user and user["password"] == password:
-            session["user"] = username  # Store username in session
+            # session["user"] = username  # Store username in session
             return jsonify({"auth": "success"})
         else:
             return jsonify({"auth": "failure"}), 401
@@ -59,7 +59,7 @@ def login():
 
 @app.route('/logout', methods=['POST'])
 def logout():
-    session.pop("user", None)  # Remove user from session
+    # session.pop("user", None)  # Remove user from session
     return jsonify({"message": "Logged out successfully"})
 
 """
@@ -86,9 +86,11 @@ def major():
 
 @app.route('/major', methods=['GET', 'POST'])
 def major():
+    '''
     if "user" not in session:
         return jsonify({"error": "Unauthorized"}), 401  
-
+    '''
+    
     majors = load_majors()
 
     if request.method == 'POST':
