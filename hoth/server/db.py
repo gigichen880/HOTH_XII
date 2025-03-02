@@ -13,11 +13,13 @@ class User:
 
 
 class Room:
-    def __init__(self, courseName=None, onlineUsers=None):
+    def __init__(self, courseName=None, onlineUsers=None, major=None):
         if courseName:
             self.courseName = courseName
         if onlineUsers:
             self.onlineUsers = []
+        if major:
+            self.major = major 
 
 
 class Database:
@@ -52,4 +54,9 @@ class Database:
             return None
 
     def add_room(self, room: Room):
-        return self.db.room.insert_one(vars(room)).inserted_id
+        if self.db.room.find_one({"courseName": room.courseName}) is not None:
+            return False
+        else:
+            self.db.room.insert_one(vars(room))
+            return True
+    
