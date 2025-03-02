@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios"
 
 const MajorPage = () => {
+  const location = useLocation();
+  const username = location.state?.username || "Guest";
   var { major } = useParams();
-  major = major.slice(1).toUpperCase();
+  major = major.slice(0).toUpperCase();
 
   const [chatRooms, setChatRooms] = useState([
     { id: 1, name: `${major.toUpperCase()} Chat Room 1` },
@@ -14,14 +16,19 @@ const MajorPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [newRoomName, setNewRoomName] = useState("");
 
+  let major_name = "African_American_Studies";
+
   const createNewRoom = () => {
     const newRoom = { id: chatRooms.length + 1, name: newRoomName };
     setChatRooms([...chatRooms, newRoom]);
     setShowPopup(false); // Close the popup after room creation
     setNewRoomName(""); // Clear the input field
+    console.log(newRoomName, username, major_name);
+    axios.post(`http://localhost:5000/major/${major_name}`, {
+      major_name, newRoomName, username
+    })
   };
 
-  let major_name = "African_American_Studies";
   axios.post("http://localhost:5000/major/African_American_Studies",{
     major_name
   });

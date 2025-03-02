@@ -22,66 +22,53 @@ export default function Major()
     }
         */
 
+    /*
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", "less_clubs.txt", true);
     let allText = rawFile.responseText;
     let major_names = allText.split('\n');
+    */
+    let major_names = [
+        "African_American_Studies",
+        "African_and_Middle_Eastern_Studies",
+        "American_Indian_Studies",
+        "American_Literature_and_Culture",
+        "Ancient_Near_East_and_Egyptology",
+        "Anthropology",
+        "Arabic",
+        "Art_History",
+        "Asian_American_Studies",
+        "Asian_Humanities"
+    ]
 
     const major = "African_American_Studies"
     let buttons = [];
-    /*
+
+    let navigate = useNavigate();
+    
     for (let i = 0; i < 10; i++)
     {
+        let target = `/major/${major_names[i]}`;
+        let name = major_names[i].split('_');
+        name = name.join(' ');
         buttons.push(
             <div>
-                <button onClick={() => MajorChoose(username, major_names[i])}>{major_names[i]}</button>
+                <button onClick={() => navigate(target, {state: {username: username}})}>{name}</button>
             </div>
         );
     }
-    */
-    let target = `/major/${major}`;
+    
+    
 
     return (
         <div className='Major'>
             <p>{greeting}</p>
             <p>CS Math Physics Bio</p>
-            <Link to={target}>{major}</Link>
+            {buttons}
         </div>
     )
 }
 
-/*
-async function MajorChoose(username, major)
-{
-    const navigate = useNavigate();
 
-    const handleNavigate = () => {
-        // Navigate to another route and pass state
-        navigate('/receiver', {
-        state: {
-            userId: 123,
-            message: 'Hello from Sender!',
-            status: 'active'
-        }
-        });
-    };
-
-    await axios.post("http://localhost:5000/major",{
-        username, major
-    })
-    .then((response) => {
-        console.log("Response: ", response.data);
-        navigate('/Major/major', {
-            state: {
-                userId: 123,
-                message: 'Hello from Sender!',
-                status: 'active'
-            }
-        })
-    })
-}
-*/
-
-// <button class='major' onClick={() => {majorChoose(username, major)}}>African American Studies</button>
 
 
