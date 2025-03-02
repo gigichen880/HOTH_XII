@@ -5,44 +5,44 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_socketio import SocketIO, join_room, leave_room, send
 import os
+from db import Listing, Database, User
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True) 
 
-@app.route("/")
-def home():
-    return "Hello, Flask!"
-
-CORS(app) 
+load_dotenv(".env")
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 # jwt = JWTManager(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
+database = Database(None)
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    data = request.json
-    hashed_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-
-    user = {
-        "username": data["username"],
-        "email": data["email"],
-        "password": hashed_pw,
-        # "major": data["major"]
-    }
-    mongo.db.users.insert_one(user)
-    return jsonify({"message": "User created!"}), 201
+    try:
+        if database.add_user(User(**request.json)):
+            return {"status": "success"}
+        else:
+            return {"status": "failure"}
+    except KeyError:
+        return {"status": "failure", "message": "Username or password not provided."}
 
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.json
-    user = mongo.db.users.find_one({"email": data["email"]})
-    if not user or not bcrypt.check_password_hash(user["password"], data["password"]):
-        return jsonify({"error": "Invalid credentials"}), 401
-
-    access_token = create_access_token(identity=user["email"])
-    return jsonify({"token": access_token, "user": {"username": user["username"], "major": user["major"]}})
+    try:
+        username = request.json['username']
+        password = request.json['password']
+        user = database.get_user(username)
+        if user["password"] == password:
+            return {"auth": "success"}
+        else:
+            return {"auth": "failure"}
+    except Exception as e:
+        print("error failure", e)
+        return {"auth": "failure"}
 
 
 if __name__ == "__main__":
