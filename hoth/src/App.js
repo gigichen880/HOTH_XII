@@ -1,33 +1,32 @@
-import * as React from 'react';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Home from './Home';
-import Login from './login.js';
-import Signup from './signup.js';
+import * as React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./Home";
+import Login from "./login.js";
+import Signup from "./signup.js";
+import MajorPage from "./majorPage.js";
 
 export default function App() {
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <Home />,
   },
   {
     path: "/login",
-    element: <Login/>,
+    element: <Login />,
   },
   {
     path: "/signup",
-    element: <Signup/>,
-  }
+    element: <Signup />,
+  },
+  {
+    path: "/Major/:major",
+    element: <MajorPage />,
+  },
 ]);
-
 
 /*
 
@@ -71,4 +70,3 @@ const router = createBrowserRouter([
     element: <ViewApp/>,
   },
 */
-
