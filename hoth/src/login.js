@@ -33,11 +33,8 @@ function Login() {
                     alert("User does not exist")
                     return
                 }
-                else if(res.data=="successLeader"){
-                    history("/",{state:{username:username, userIsClubLeader:true}}) //passes the username as the id in the next page
-                }
-                else if(res.data=="successStudent"){
-                    history("/",{state:{username:username, userIsClubLeader:false}}) //passes the username as the id in the next page
+                else {
+                    history("/Major",{state:{username:username}}) //passes the username as the id in the next page
                 }
             })
             .catch(e=>{

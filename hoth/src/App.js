@@ -6,6 +6,7 @@ import {
 import Home from './Home';
 import Login from './login.js';
 import Signup from './signup.js';
+import Major from './major.js';
 
 export default function App() {
   return (
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup/>,
+  },
+  {
+    path: "/major",
+    element: <Major/>,
   }
 ]);
 
