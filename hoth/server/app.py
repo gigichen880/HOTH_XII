@@ -107,11 +107,11 @@ def major():
 
     return jsonify({"majors": majors}) 
 
-@app.route('/major/<major_name>', methods=['GET'])
+@app.route('/major/<major_name>', methods=['GET', 'POST'])
 def major_detail(major_name):
     """Handle major-specific page request."""
     majors = load_majors()
-    print("hahahaha")
+    print("hahahaha", major_name)
     if major_name not in majors:
         return jsonify({"error": "Major not found"}), 404
 
