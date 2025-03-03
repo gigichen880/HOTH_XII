@@ -1,19 +1,47 @@
+/* Add styles for the box around the signup form */
+
+.signup-box {
+    width: 400px;
+    background: #003b5c;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+h1 {
+    color: #ffd700; /* Change this to any color you prefer */
+    margin-bottom: 10px;
+}
+
 .switch {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 34px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
+}
+
+/* Hide default HTML checkbox */
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  /* The slider */
-  .slider {
+}
+
+/*link to login page*/
+/* Add styles for the link */
+.login a {
+    color: #ffd700 !important; /* Gold color and force the style */
+    text-decoration: none;
+}
+
+/* If needed, you can also remove the visited link color */
+.register-link a:visited {
+    color: #ffd700 !important; /* Ensure it stays gold after visiting */
+}
+
+/* The slider */
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -21,11 +49,11 @@
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -33,33 +61,33 @@
     left: 4px;
     bottom: 4px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
+}
+
+/* Rounded sliders */
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
-  .textInput{
+}
+.textInput {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -67,18 +95,18 @@
     border-radius: 5px;
     box-sizing: border-box;
 }
-.submitButton{
+.submitButton {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: none;
     border-radius: 5px;
-    background-color: #007BFF;
+    background-color: #007bff;
     color: white;
     cursor: pointer;
     font-size: 20px;
 }
-.checkbox{
+.checkbox {
     display: flex;
     justify-content: space-between;
     align-items: center;

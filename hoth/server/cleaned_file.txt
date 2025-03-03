@@ -15,7 +15,7 @@ Astrophysics
 Atmospheric_and_Oceanic_Sciences
 Atmospheric_and_Oceanic_Sciences/Mathematics
 Biochemistry
-Bilogy
+Biology
 Biophysics
 Buiness_Economics
 Central_and_East_European_Languages_and_Cultures
@@ -132,5 +132,4 @@ Film_and_Television
 Theater
 Individual_Field_of_Concentration_in_Theater,_Film_and_Television
 Education_and_Social_Transformation
-Public_Health
 Public_Health
