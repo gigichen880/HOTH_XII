@@ -55,6 +55,16 @@ class Database:
             print(f"Error getting user: {str(e)}")
             return None
     
+    def get_all_major_room(self, major_name: str):
+        all_rooms = []
+        query = {"major": major_name}  # Query rooms based on major
+
+        for room in self.db.room.find(query):
+            room['_id'] = str(room['_id'])  # Convert ObjectId to string for readability
+            all_rooms.append(room)
+
+        return all_rooms
+    
     def join_room(self, room:Room, user:str):
         existing_room = self.db.room.find_one({"newRoomName": room.newRoomName})
 
