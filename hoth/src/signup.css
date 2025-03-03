@@ -1,5 +1,11 @@
 /* Add styles for the box around the signup form */
 
+body {
+    margin: 0; /* Ensure no default margins interfere */
+    height: 100vh; /* Full viewport height */
+    position: relative; /* Reference for absolute positioning */
+}
+
 .signup-box {
     width: 400px;
     background: #003b5c;
@@ -7,6 +13,10 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     text-align: center;
+    position: absolute; /* Take it out of normal flow */
+    top: 50%; /* Move top edge to middle of viewport */
+    left: 50%; /* Move left edge to middle of viewport */
+    transform: translate(-50%, -50%); /* Shift back by half its size */
 }
 
 h1 {
