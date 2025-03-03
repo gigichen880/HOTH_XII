@@ -19,14 +19,18 @@ const MajorPage = () => {
 
   // let major_name = "African_American_Studies";
 
-  const createNewRoom = () => {
+  const createNewRoom = async () => {
     const newRoom = { id: chatRooms.length + 1, name: newRoomName };
     setChatRooms([...chatRooms, newRoom]);
     setShowPopup(false); // Close the popup after room creation
     setNewRoomName(""); // Clear the input field
     console.log(newRoomName, username, major_name);
-    axios.post(`http://localhost:5000/major/${major_name}`, {
-      newRoomName, username, major_name
+    const response = await fetch(`http://localhost:5000/major/${major_name}`, {
+      method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({newRoomName: newRoomName, username: username, major_name: major_name}), // Send room data in the body
     })
   };
 

@@ -107,19 +107,22 @@ def major():
 
     return jsonify({"majors": majors}) 
 
-@app.route('/major/<major_name>', methods=['GET', 'POST'])
+@app.route('/major/<major_name>', methods=['GET'])
 def all_major_room(major_name):
-    print(database.get_all_major_room(major_name))
+    # print(database.get_all_major_room(major_name))
     return database.get_all_major_room(major_name)
 
-#def major_detail(major_name):
-#    try:
-#        if database.add_room(Room(**request.json)):
-#            return {"status": "success"}
-#        else:
-#            return {"status": "failure"}
-#    except KeyError:
-#        return {"status": "failure", "message": "something or something not provided."}
+
+@app.route('/major/<major_name>', methods=['POST'])
+def create_new_room(major_name):
+    try:
+        print("ohhhh", request.json)
+        if database.add_room(Room(**request.json)):
+            return {"status": "success"}
+        else:
+            return {"status": "failure"}
+    except KeyError:
+        return {"status": "failure", "message": "something or something not provided."}
 
 if __name__ == "__main__":
     app.run(debug=True)

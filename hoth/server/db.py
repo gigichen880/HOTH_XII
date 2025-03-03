@@ -80,11 +80,11 @@ class Database:
             self.db.room.insert_one(vars(room))
             return True 
 
-    def add_room(self, room: Room, user: str):
+    def add_room(self, room: Room):
          if self.db.room.find_one({"newRoomName": room.newRoomName}) is not None:
             return False
          else:
-            room.onlineUsers = [user]  
+            room.onlineUsers = [room.onlineUsers]  
             self.db.room.insert_one(vars(room))
             return True
         
