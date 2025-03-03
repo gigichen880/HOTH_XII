@@ -54,8 +54,8 @@ class Database:
         except Exception as e:
             print(f"Error getting user: {str(e)}")
             return None
-
-    def add_room(self, room: Room, user: str):
+    
+    def join_room(self, room:Room, user:str):
         existing_room = self.db.room.find_one({"newRoomName": room.newRoomName})
 
         if existing_room:
@@ -69,3 +69,12 @@ class Database:
             room.onlineUsers = [user]  
             self.db.room.insert_one(vars(room))
             return True 
+
+    def add_room(self, room: Room, user: str):
+         if self.db.room.find_one({"newRoomName": room.newRoomName}) is not None:
+            return False
+         else:
+            room.onlineUsers = [user]  
+            self.db.room.insert_one(vars(room))
+            return True
+        
