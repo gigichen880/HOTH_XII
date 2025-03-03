@@ -36,6 +36,7 @@ let joinStream = async () => {
     await joinAndDisplayLocalStream();
     document.getElementById("join-btn").style.display = "none"; // Hide join button
     document.getElementById("stream-controls").style.display = "flex"; // Show controls
+    document.getElementById("title").style.display = "block"; // Show title when joining
 };
 
 // Handle when a remote user joins
@@ -82,6 +83,7 @@ let leaveAndRemoveLocalStream = async () => {
     document.getElementById("join-btn").style.display = "block"; // Show join button
     document.getElementById("stream-controls").style.display = "none"; // Hide controls
     document.getElementById("video-streams").innerHTML = ""; // Clear video display
+    document.getElementById("title").style.display = "none"; // Hide title when leaving
 };
 
 // Function to toggle microphone on/off
