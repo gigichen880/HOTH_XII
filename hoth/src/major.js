@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from "react-router-dom";
 
 import axios from "axios"
-import parse from 'html-react-parser';
 
 import './Home.css';
 

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation, } from "react-router-dom";
 import axios from "axios"
 
 const MajorPage = () => {
@@ -36,6 +36,46 @@ const MajorPage = () => {
   });
   */
 
+  const [roomButtons, setRoomButtons] = useState([]); // Declare roomButtons state
+  const [loading, setLoading] = useState(true); // Declare loading state
+  const [error, setError] = useState(null); // Declare error state
+
+  useEffect(() => {
+    async function fetch_room_info() {
+      try {
+        const response = await fetch(`http://localhost:5000/major/${major_name}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        // Map the data to JSX buttons (assuming data is an array of rooms with 'newRoomName' and 'name')
+        const buttons = data.map((room, idx) => (
+          <button
+            key={idx} // Use a unique key for React
+            onClick={() => alert(`Joining ${room.newRoomName}`)}
+            style={styles.roomButton} // Example style object
+          >
+            {room.newRoomName}
+          </button>
+        ));
+
+        setRoomButtons(buttons); // Update state with JSX buttons
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetch_room_info();
+  }, [major_name]); // Re-run if major_name changes
+  
 
   return (
     <div style={styles.pageContainer}>
@@ -55,6 +95,7 @@ const MajorPage = () => {
               </button>
             </li>
           ))}
+          {roomButtons}
         </ul>
       </div>
 
