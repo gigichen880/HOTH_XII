@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"
+import "./majorPage.css"
 
 const MajorPage = () => {
   
@@ -14,11 +15,7 @@ const MajorPage = () => {
   let major_name = major.slice(0)
   major = major_name.toUpperCase();
 
-  const [chatRooms, setChatRooms] = useState([
-    { id: 1, name: `${major.toUpperCase()} Chat Room 1` },
-    { id: 2, name: `${major.toUpperCase()} Chat Room 2` },
-    { id: 3, name: `${major.toUpperCase()} Chat Room 3` },
-  ]);
+  const [chatRooms, setChatRooms] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [newRoomName, setNewRoomName] = useState("");
 
@@ -45,7 +42,6 @@ const MajorPage = () => {
   });
   */
 
-  const [roomButtons, setRoomButtons] = useState([]); // Declare roomButtons state
   const [loading, setLoading] = useState(true); // Declare loading state
   const [error, setError] = useState(null); // Declare error state
 
@@ -64,17 +60,14 @@ const MajorPage = () => {
         const data = await response.json();
 
         // Map the data to JSX buttons (assuming data is an array of rooms with 'newRoomName' and 'name')
-        const buttons = data.map((room, idx) => (
-          <button
-            key={idx} // Use a unique key for React
-            onClick={() => navigate(`/major/${major_name}/${room.newRoomName}`, {state:{major_name:major_name}})}
-            style={styles.roomButton} // Example style object
-          >
-            {room.newRoomName}
-          </button>
-        ));
+        
+        console.log(data);
+        data.forEach((room, idx) => {
+          console.log(room["newRoomName"]);
+          setChatRooms([...chatRooms, {name:  `${room["newRoomName"]} Chat Room`}]);
+          console.log(chatRooms);
+        })
 
-        setRoomButtons(buttons); // Update state with JSX buttons
       } catch (error) {
         setError(error.message);
       } finally {
@@ -94,8 +87,16 @@ const MajorPage = () => {
       <div>
         <h3 style={styles.subheading}>Available Chat Rooms</h3>
         <ul style={styles.roomList}>
-          
-          {roomButtons}
+          {chatRooms.map((room) => (
+            <li key={room.id} style={styles.roomItem}>
+              <button
+                onClick={() => navigate(`/major/${major_name}/${room.newRoomName}`, {state:{major_name:major_name}})}
+                style={styles.roomButton}
+              >
+                {room.name}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
 
