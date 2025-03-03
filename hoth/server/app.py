@@ -114,7 +114,7 @@ def all_major_room(major_name):
 
 
 @app.route('/major/<major_name>', methods=['POST'])
-def create_new_room(major_name):
+def create_new_room():
     try:
         print("ohhhh", request.json)
         if database.add_room(Room(**request.json)):
@@ -123,6 +123,17 @@ def create_new_room(major_name):
             return {"status": "failure"}
     except KeyError:
         return {"status": "failure", "message": "something or something not provided."}
+    
+@app.route('/major/<major_name>/<room_name>', methods=['GET'])
+def leave_room():
+    try:
+        if database.leave_room(Room(**request.json)):
+            return {"status": "success"}
+        else:
+            return {"status": "failure"}
+    except KeyError:
+        return {"status": "failure", "message": "leave room - something or something not provided."}        
+
 
 if __name__ == "__main__":
     app.run(debug=True)

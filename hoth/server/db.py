@@ -79,7 +79,27 @@ class Database:
             room.onlineUsers = [user]  
             self.db.room.insert_one(vars(room))
             return True 
+    
+    def leave_room(self, room: Room, user: str):
+        existing_room = self.db.room.find_one({"newRoomName": room.newRoomName})
 
+        if existing_room:
+            if user in existing_room.get("onlineUsers", []):
+                # Remove user from the onlineUsers list
+                self.db.room.update_one(
+                    {"newRoomName": room.newRoomName},
+                    {"$pull": {"onlineUsers": user}}
+                )
+
+                # Check if the room is empty after removal
+                updated_room = self.db.room.find_one({"newRoomName": room.newRoomName})
+                if not updated_room.get("onlineUsers"):  # If empty, delete the room
+                    self.db.room.delete_one({"newRoomName": room.newRoomName})
+
+            return True  # User left the room
+        return False  # Room does not exist
+
+        
     def add_room(self, room: Room):
          if self.db.room.find_one({"newRoomName": room.newRoomName}) is not None:
             return False
