@@ -1,0 +1,58 @@
+.Major {
+    position: relative;
+    padding: 20px;
+}
+
+/* Greeting Style (top-left) */
+.greeting {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700; /* Gold color */
+}
+
+/* Major buttons list style */
+.majors-list {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(200px, 1fr)
+    ); /* Automatically fill columns */
+    gap: 20px;
+    margin-top: 60px; /* Space between greeting and buttons */
+}
+
+/* Button styling */
+.major-button button {
+    width: 100%;
+    padding: 12px;
+    background-color: #8bb8ee;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+/* Button hover effect */
+.major-button button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+    .greeting {
+        font-size: 18px;
+    }
+
+    .major-button button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
