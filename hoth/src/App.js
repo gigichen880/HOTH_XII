@@ -5,6 +5,7 @@ import Login from "./login.js";
 import Signup from "./signup.js";
 import Major from "./major.js";
 import VideoStream from "./VideoStream.js"
+import Room from "./room.js"
 
 import MajorPage from "./majorPage.js";
 
@@ -34,8 +35,8 @@ const router = createBrowserRouter([
     element: <MajorPage />,
   },
   {
-    path: "/Major/American_Literature_and_Culture/wow",
-    element: <VideoStream />,
+    path: "/major/:major/:room_name",
+    element: <Room />,
   },
 ]);
 

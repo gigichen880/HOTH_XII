@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation, } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"
 
 const MajorPage = () => {
+  
+  const navigate = useNavigate();
+
+  var { room_name } = useParams();
+
   const location = useLocation();
   const username = location.state?.username || "Guest";
   var { major } = useParams();
@@ -62,7 +67,7 @@ const MajorPage = () => {
         const buttons = data.map((room, idx) => (
           <button
             key={idx} // Use a unique key for React
-            onClick={() => alert(`Joining ${room.newRoomName}`)}
+            onClick={() => navigate(`/major/${major_name}/${room.newRoomName}`, {state:{major_name:major_name}})}
             style={styles.roomButton} // Example style object
           >
             {room.newRoomName}
@@ -89,16 +94,7 @@ const MajorPage = () => {
       <div>
         <h3 style={styles.subheading}>Available Chat Rooms</h3>
         <ul style={styles.roomList}>
-          {chatRooms.map((room) => (
-            <li key={room.id} style={styles.roomItem}>
-              <button
-                onClick={() => alert(`Joining ${room.name}`)}
-                style={styles.roomButton}
-              >
-                {room.name}
-              </button>
-            </li>
-          ))}
+          
           {roomButtons}
         </ul>
       </div>
