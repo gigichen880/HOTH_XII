@@ -15,6 +15,7 @@
 }
 
 body {
+    display: block;
     background: #0f2027;
     background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
     background: linear-gradient(to right, #d1e7e7, #b0e4dd, #93e3d2);
